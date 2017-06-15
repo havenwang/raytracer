@@ -5,10 +5,13 @@ class Hitable:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def hit(self, ray, t_min,t_max, record):
+    def hit(self, ray, t_min, t_max) -> HitRecord:
         pass
 
+
 class HitRecord:
+    def __init__(self):
+        pass
 
     def __init__(self, t, p, normal):
         self.t = t
