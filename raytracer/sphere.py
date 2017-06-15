@@ -2,12 +2,13 @@ import math
 
 from raytracer.hitable import Hitable, HitRecord
 from raytracer.ray import Ray
+from raytracer.vector import Vector
 
 
 class Sphere(Hitable):
-    def __init__(self, *args):
-        self.center = args[0]
-        self.radius = args[1]
+    def __init__(self, center: Vector, radius: float):
+        self.center = center
+        self.radius = radius
 
     def hit(self,
             ray: Ray,
@@ -16,7 +17,7 @@ class Sphere(Hitable):
         distance_to_center = ray.origin() - self.center
         a = ray.direction().inner(ray.direction())
         b = distance_to_center.inner(ray.direction())
-        c = distance_to_center.inner(distance_to_center)
+        c = distance_to_center.inner(distance_to_center) - self.radius ** 2
         discriminant = b * b - a * c
         if discriminant > 0:
             t = (-b - math.sqrt(discriminant)) / a
@@ -35,5 +36,5 @@ class Sphere(Hitable):
         record = HitRecord()
         record.t = t
         record.p = ray.point_at_parameter(record.t)
-        record.normal = (record.p - self.center) / self.radius
+        record.normal = (record.p - self.center).normalize()
         return record
