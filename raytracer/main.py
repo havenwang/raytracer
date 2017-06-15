@@ -4,9 +4,9 @@ from raytracer.ray import Ray
 from raytracer.vector import Vector
 
 
-def hit_sphere(center, radius, r):
-    A = r.origin()
-    B = r.direction()
+def hit_sphere(center: Vector, radius: float, ray: Ray):
+    A = ray.origin()
+    B = ray.direction()
     C = center
 
     a = B.inner(B)
@@ -16,10 +16,10 @@ def hit_sphere(center, radius, r):
     return (discriminant >= 0)
 
 
-def color(r):
-    if (hit_sphere(Vector(0, 0, -1), 0.5, r)):
+def color(ray: Ray):
+    if (hit_sphere(Vector(0, 0, -1), 0.5, ray)):
         return Vector(1, 0, 0)
-    unit_direction = r.direction().normalize()
+    unit_direction = ray.direction().normalize()
     t = 0.5 * (unit_direction.values[1] + 1)
     return (1.0 - t) * Vector(1., 1., 1.) + t * Vector(0.5, 0.7, 1.0)
 
