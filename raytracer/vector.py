@@ -98,6 +98,10 @@ class Vector(object):
         """
         return sum(a * b for a, b in zip(self, other))
 
+    def div_by_value(self, val):
+        for v in self.values:
+            v = float(v) / val
+
     def __mul__(self, other):
         """ Returns the dot product of self and other if multiplied
             by another Vector.  If multiplied by an int or float,
